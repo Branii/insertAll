@@ -1,0 +1,6 @@
+{
+    "require": {
+        "react/react": "^1.4",
+        "monolog/monolog": "^3.5"
+    }
+}
