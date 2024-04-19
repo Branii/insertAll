@@ -12,24 +12,23 @@ class Games extends Database {
 
     }
 
-    public static function getbetStatus(string $gameId, string $drawperiod, string $status) : array {
-
+    public static function getBetStatusCount(string $gameId, string $drawPeriod, string $status): int {
         $table = GameData::getGameTableMap()[$gameId]['bet_table'];
-        $query = "SELECT * FROM $table WHERE $drawperiod = ? AND $status = ?";
+        $query = "SELECT COUNT(*) AS TOTALCOUNT FROM $table WHERE draw_period = ? AND bet_status = ?";
         $stmt = Database::open()->prepare($query);
-        $stmt -> bindParam(1,$drawperiod);
-        $stmt -> bindParam(2,$status);
-        $stmt -> execute();
-        return $stmt->fetchAll();
-
+        $stmt->bindParam(1, $drawPeriod);
+        $stmt->bindParam(2, $status);
+        $stmt->execute();
+        $totalCount = $stmt->fetchColumn();
+        $stmt->closeCursor();
+        return (int) $totalCount;
     }
 
     public static function getDrawPeriod(string $gameId, string $dateCreated) : mixed {
-
         $table = GameData::getGameTableMap()[$gameId]['draw_table'];
-        $query = "SELECT * FROM $table WHERE date_created = '2024-04-19'";
+        $query = "SELECT * FROM $table WHERE date_created = ?";
         $stmt = Database::open()->prepare($query);
-        //$stmt -> bindParam(1,$dateCreated);
+        $stmt -> bindParam(1,$dateCreated);
         $stmt -> execute();
         return $stmt->fetchAll();
 

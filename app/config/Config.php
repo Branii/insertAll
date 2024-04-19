@@ -3,7 +3,7 @@
 class Config {
 
     private static $arr = [
-        '/' => 'mysql:host=192.168.199.241;dbname=lottery',
+        '/' => 'mysql:host=203.161.56.241;dbname=lottery',
         '//' => 'enzerhub',
         '///' => 'enzerhub'
     ];
